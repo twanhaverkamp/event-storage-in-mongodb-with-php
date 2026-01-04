@@ -1,0 +1,31 @@
+name: Run extensive tests
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Start containers
+        run: docker compose up -d
+
+      - name: Wait for PHPUnit
+        run: |
+          until vendor/bin/phpunit --version
+          do
+            sleep 1
+          done
+
+      - name: Run PHPUnit
+        run: docker compose exec php-8.3 vendor/bin/phpunit --testsuite integration --testdox
+
+      - name: Stop containers
+        run: docker compose down -v
