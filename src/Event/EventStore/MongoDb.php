@@ -110,7 +110,7 @@ class MongoDb implements EventStore\EventStoreInterface
                     'recordedAt'      => $event->getRecordedAt()->format(DATE_ATOM),
                     'microseconds'    => (int)$event->getRecordedAt()->format('u'),
                 ]);
-            } catch (MongoDbInvalidArgumentException|MongoDbRuntimeException $e) {
+            } catch (MongoDbInvalidArgumentException | MongoDbRuntimeException $e) {
                 throw new Exception\EventStorageFailedException(
                     message: sprintf(
                         "Failed to store Event(s) for Aggregate with AggregateRootId %s.",
