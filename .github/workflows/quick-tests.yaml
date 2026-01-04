@@ -62,6 +62,6 @@ jobs:
           XDEBUG_MODE: coverage
         with:
           php_version: '8.3'
-          php_extensions: mongodb, xdebug
+          php_extensions: mongodb xdebug
           testsuite: unit
           args: --testdox --coverage-text
